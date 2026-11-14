@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEXORA Oʻyinlar</title>
+<style>
+:root{--bg:#12141c;--panel:#1c2030;--line:#2b3048;--text:#f2f3f8;--mute:#9aa0b8;--gold:#f5b82e;--hot:#ff5a4e;--mint:#3ddbb0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f4fa;--panel:#fff;--line:#dfe2f0;--text:#171a28;--mute:#5d6380}}
+:root[data-theme="dark"]{--bg:#12141c;--panel:#1c2030;--line:#2b3048;--text:#f2f3f8;--mute:#9aa0b8}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:radial-gradient(120% 55% at 50% -8%,rgba(245,184,46,.18),transparent 60%),radial-gradient(80% 40% at 100% 30%,rgba(255,90,78,.10),transparent 70%),var(--bg);color:var(--text);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;max-width:480px;margin:0 auto;padding:14px 14px 90px}
+h1{font-size:20px;margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.bal{background:linear-gradient(135deg,var(--panel),rgba(245,184,46,.16));box-shadow:0 0 18px rgba(245,184,46,.35);border:2px solid var(--gold);border-radius:999px;padding:8px 16px;font-weight:700;font-size:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.row{display:flex;gap:10px}
+.game{flex:1;text-align:center;padding:16px 8px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(160deg,var(--panel),rgba(108,123,255,.16));box-shadow:0 6px 16px rgba(0,0,0,.18);color:var(--text);font-size:15px;font-weight:700;cursor:pointer}
+.game span{display:block;font-size:30px;margin-bottom:6px}
+button.btn{background:var(--gold);color:#241a00;border:0;border-radius:12px;padding:12px 18px;font-weight:700;font-size:16px;cursor:pointer;width:100%}
+button.btn.alt{background:var(--mint);color:#04231b}
+button.btn:disabled{opacity:.45}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;max-width:480px;margin:auto;background:var(--panel);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+.nav button{flex:1;background:none;border:0;color:var(--mute);font-size:12px;padding:6px;cursor:pointer}
+.nav button.on{color:var(--gold);font-weight:700}
+.nav b{display:block;font-size:20px}
+.tab{display:none}.tab.on{display:block}
+.big{font-size:54px;text-align:center;user-select:none}
+.tapzone{width:170px;height:170px;margin:12px auto;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe07a,var(--gold) 60%,#b27d00);display:flex;align-items:center;justify-content:center;font-size:70px;cursor:pointer;user-select:none;touch-action:manipulation;transition:transform .06s}
+.tapzone:active{transform:scale(.93)}
+.mute{color:var(--mute);font-size:14px}
+.center{text-align:center}
+.opt{display:block;width:100%;text-align:left;margin-top:8px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer}
+.opt.ok{border-color:var(--mint);background:rgba(61,219,176,.18)}
+.opt.bad{border-color:var(--hot);background:rgba(255,90,78,.18)}
+.wheelwrap{position:relative;width:240px;height:240px;margin:10px auto}
+#wheel{width:100%;height:100%;border-radius:50%;transition:transform 4s cubic-bezier(.12,.7,.1,1)}
+.pin{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:28px;color:var(--hot)}
+.pack{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pack b{font-size:17px}
+.bar{height:8px;border-radius:6px;background:var(--line);overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--hot);width:100%}
+.lb{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.lb:last-child{border:0}
+.md{font-size:26px;width:36px;text-align:center}
+.nm{flex:1}
+.lbar{height:6px;border-radius:4px;background:var(--line);margin-top:6px;overflow:hidden}
+.lbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--hot))}
+.sm{text-align:right;font-size:13px;color:var(--mute)}
+.pz{display:block;color:var(--gold);font-weight:700;margin-top:2px;font-size:14px}
+.hero{background:linear-gradient(135deg,rgba(245,184,46,.22),rgba(255,90,78,.18));border-color:var(--gold)}
+.tapzone{box-shadow:0 0 0 8px rgba(245,184,46,.18),0 0 44px rgba(245,184,46,.6)}
+.fl{position:fixed;pointer-events:none;font-weight:700;font-size:22px;color:var(--gold);animation:up .7s forwards}@keyframes up{to{transform:translateY(-70px);opacity:0}}
+.lvls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.lv{border:2px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:8px 2px;font-size:12px;cursor:pointer}
+.lv b{display:block;font-size:24px}.lv small{display:block;color:var(--mute);font-size:10px;margin-top:2px}
+.lv.on{border-color:var(--c);box-shadow:0 0 16px var(--c)}.lv.lock{opacity:.65}
+.buy{text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.buy input{width:100%;margin:8px 0;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:16px}
+.buy .btn{margin-top:6px}
+.timer{height:10px;border-radius:8px;background:var(--line);overflow:hidden;margin:8px 0}
+.timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--hot),var(--gold))}
+.stats{display:flex;justify-content:space-around;margin:6px 0}.stats span{display:block;font-size:26px;font-weight:700}.stats small{color:var(--mute);font-size:12px}
+.arena{position:relative;width:210px;height:210px;margin:6px auto 12px;display:flex;align-items:center;justify-content:center}
+.ring{position:absolute;inset:0;border-radius:50%;border:3px solid var(--c,var(--gold));opacity:0;pointer-events:none;z-index:0}
+.arena .tapzone{position:relative;z-index:1;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@media (prefers-color-scheme:dark){html{background:radial-gradient(90% 45% at 50% 0%,rgba(245,184,46,.22),transparent 65%),radial-gradient(80% 50% at 0% 100%,rgba(108,123,255,.3),transparent 65%),radial-gradient(70% 40% at 100% 60%,rgba(255,90,78,.15),transparent 65%),#0e1019 !important;background-attachment:fixed !important}}
+.arena.act .ring{animation:pr 1s infinite}@keyframes pr{from{transform:scale(.8);opacity:.9}to{transform:scale(1.15);opacity:0}}
+.fl.big6{font-size:30px;color:#fff;text-shadow:0 0 12px var(--gold)}
+.arena .tapzone{touch-action:none}
+.pt{position:fixed;pointer-events:none;font-size:16px;z-index:40;animation:pt .6s ease-out forwards}
+@keyframes pt{to{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}}
+.fc{position:fixed;pointer-events:none;font-size:26px;z-index:50;transition:transform .65s cubic-bezier(.5,-.2,.8,.5),opacity .65s}
+.bal.pop{animation:popb .35s}@keyframes popb{50%{transform:scale(1.18);box-shadow:0 0 30px rgba(245,184,46,.95)}}
+.cf{position:fixed;top:-26px;pointer-events:none;font-size:24px;z-index:60;animation:fall 1.5s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(420deg);opacity:.6}}
+.timer.low i{animation:blink .4s infinite}@keyframes blink{50%{opacity:.35}}
+.stats .low{color:var(--hot)}
+</style>
+</head>
+<body>
+<div class="top"><h1>NEXORA Oʻyinlar</h1><div class="bal">🪙 <span id="bal">0</span></div></div>
+
+<section class="tab on" id="t-home">
+  <div class="card center"><div class="mute">Ketma-ket kirgan kunlar</div><div class="big" id="streak">0</div>
+  <button class="btn" id="dailyBtn">🎁 Kunlik bonusni olish</button></div>
+  <div class="row">
+    <button class="game" data-go="tap"><span>👆</span>Tez bos</button>
+    <button class="game" data-go="wheel"><span>🎡</span>Omad gʻildiragi</button>
+    <button class="game" data-go="quiz"><span>❓</span>Viktorina</button>
+  </div>
+  <div class="card" style="margin-top:12px"><b>Doʻst taklif qil</b><div class="mute" style="margin:6px 0 10px">Har bir doʻst uchun 100 🪙 (bot server hisoblaydi)</div><button class="btn alt" id="share">Havolani ulashish</button></div>
+</section>
+
+<section class="tab" id="t-tap">
+  <div class="card center">
+    <div class="lvls" id="lvls"></div>
+    <div class="buy" id="buy" style="display:none"></div>
+    <div class="mute" id="linfo"></div>
+    <div class="mute" id="plays" style="margin-top:4px"></div>
+    <div class="timer"><i id="tbar"></i></div>
+    <div class="stats"><div><span id="taps">0</span><small>bosish</small></div><div><span id="earn">0</span><small>🪙 topildi</small></div><div><span id="tl">30</span><small>soniya</small></div></div>
+    <div class="arena" id="arena"><div class="ring"></div><div class="tapzone" id="tapzone">🪙</div></div>
+    <button class="btn" id="tapStart">Boshlash</button>
+  </div>
+</section>
+
+<section class="tab" id="t-wheel">
+  <div class="card center"><b>Omad gʻildiragi</b><div class="mute">Kuniga 1 marta bepul</div>
+  <div class="wheelwrap"><div class="pin">▼</div><canvas id="wheel" width="480" height="480"></canvas></div>
+  <button class="btn" id="spin">Aylantirish</button><div id="wres" class="mute" style="margin-top:8px"></div></div>
+</section>
+
+<section class="tab" id="t-quiz">
+  <div class="card"><b>Viktorina</b> <span class="mute" id="qn"></span>
+  <div id="qbox" style="margin-top:8px"></div><button class="btn alt" id="qstart" style="margin-top:10px">Boshlash (5 savol, toʻgʻri javob = 10 🪙)</button></div>
+</section>
+
+<section class="tab" id="t-shop">
+  <div class="card"><b>Donat</b><div class="mute" style="margin:6px 0">Donat bot rivojlanishi uchun. Eng koʻp donat qilganlar TOP ga chiqadi va sovgʻa oladi. Toʻlov admin orqali tasdiqlanadi.</div></div>
+  <div class="card hero"><b>🏆 Donat TOP</b><div class="mute" style="margin:4px 0 6px">1-oʻrin 120 UC, 2-oʻrin 1 000 🪙, 3-oʻrin 500 🪙</div><div id="lb"></div></div>
+  <div class="card pack"><div><b>500 🪙</b><div class="mute">5 000 soʻm</div></div><button class="btn" style="width:auto" data-buy="500 tanga, 5000 soʻm">Sotib olish</button></div>
+  <div class="card pack"><div><b>1 500 🪙</b><div class="mute">12 000 soʻm</div></div><button class="btn" style="width:auto" data-buy="1500 tanga, 12000 soʻm">Sotib olish</button></div>
+  <div class="card pack"><div><b>5 000 🪙</b><div class="mute">35 000 soʻm</div></div><button class="btn" style="width:auto" data-buy="5000 tanga, 35000 soʻm">Sotib olish</button></div>
+  <div class="card"><b>Tanga bilan almashtirish</b>
+  <div class="pack" style="margin-top:10px"><span>10% chegirma kuponi</span><button class="btn alt" style="width:auto" data-spend="300|10% chegirma kuponi">300 🪙</button></div>
+  <div class="pack" style="margin-top:10px"><span>60 UC (sovgʻa)</span><button class="btn alt" style="width:auto" data-spend="2500|60 UC sovgʻa">2 500 🪙</button></div></div>
+</section>
+
+<div class="nav">
+  <button class="on" data-tab="home"><b>🏠</b>Bosh</button>
+  <button data-tab="tap"><b>👆</b>Tez bos</button>
+  <button data-tab="wheel"><b>🎡</b>Gʻildirak</button>
+  <button data-tab="quiz"><b>❓</b>Quiz</button>
+  <button data-tab="shop"><b>🛒</b>Donat</button>
+</div>
+
+<script>
+var ADMIN="Javohiruz_pubg", BOT="NEXORAuc_bot";
+var PRIZE=["120 UC","1 000 🪙","500 🪙"];
+var DONORS=[{n:"Ali",s:150000},{n:"Sardor",s:90000},{n:"Jasur",s:50000},{n:"Dilshod",s:20000},{n:"Bekzod",s:10000}];
+(function(){var l=DONORS.slice().sort(function(a,b){return b.s-a.s}),top=l[0]?l[0].s:1,h="";
+  l.forEach(function(d,i){var m=["🥇","🥈","🥉"][i]||(i+1)+".";var p=PRIZE[i]?"<span class='pz'>"+PRIZE[i]+"</span>":"";
+    h+="<div class='lb'><span class='md'>"+m+"</span><div class='nm'><b>"+d.n+"</b><div class='lbar'><i style='width:"+Math.round(d.s/top*100)+"%'></i></div></div><div class='sm'>"+String(d.s).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" soʻm"+p+"</div></div>";});
+  document.getElementById("lb").innerHTML=h;})();
+var S={coins:0,streak:0,lastDaily:"",lastWheel:"",lastTapWin:""};
+try{var raw=localStorage.getItem("nexora");if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem("nexora",JSON.stringify(S));}catch(e){}}
+function today(){return new Date().toISOString().slice(0,10)}
+function render(){document.getElementById("bal").textContent=S.coins;document.getElementById("streak").textContent=S.streak;
+  document.getElementById("dailyBtn").disabled=S.lastDaily===today();
+  document.getElementById("dailyBtn").textContent=S.lastDaily===today()?"Bugungi bonus olingan ✓":"🎁 Kunlik bonusni olish";
+  document.getElementById("spin").disabled=S.lastWheel===today();}
+function add(n){S.coins+=n;save();render();}
+function show(id){document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("on")});document.getElementById("t-"+id).classList.add("on");
+  document.querySelectorAll(".nav button").forEach(function(b){b.classList.toggle("on",b.dataset.tab===id)});}
+document.querySelectorAll("[data-tab]").forEach(function(b){b.onclick=function(){show(b.dataset.tab)}});
+document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){show(b.dataset.go)}});
+
+document.getElementById("dailyBtn").onclick=function(){
+  var y=new Date(Date.now()-864e5).toISOString().slice(0,10);
+  S.streak=(S.lastDaily===y)?S.streak+1:1;S.lastDaily=today();
+  add(Math.min(10+S.streak*5,60));};
+
+/* Tez bos: 4 daraja (0 dan qayta yozilgan) */
+var LV=[
+{n:1,sec:30,per:10,price:0,ic:"🪙",nm:"Bronza",c:"#d98a3d"},
+{n:2,sec:35,per:9,price:7000,ic:"⭐",nm:"Kumush",c:"#c4ccdf"},
+{n:3,sec:40,per:8,price:15000,ic:"💎",nm:"Olmos",c:"#4fd0ff"},
+{n:4,sec:50,per:7,price:40000,ic:"👑",nm:"Qirol",c:"#ff5a4e"}];
+var CODES={2:"NX2-7K4Q",3:"NX3-M9P2",4:"NX4-X5R8"}; /* admin kodlari: o\u02bbzgartiring */
+var MAXPLAYS=25,WINDOW=12*3600*1000;
+if(!S.open)S.open=[1];if(!S.lv)S.lv=1;if(!S.plays)S.plays=[];
+var g={on:false,taps:0,earned:0,end:0,timer:null};
+function $(i){return document.getElementById(i)}
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ")}
+function playsLeft(){var now=Date.now();S.plays=S.plays.filter(function(t){return now-t<WINDOW});return MAXPLAYS-S.plays.length;}
+function waitText(){var ms=Math.min.apply(null,S.plays)+WINDOW-Date.now();var m=Math.max(1,Math.ceil(ms/60000));return Math.floor(m/60)+" soat "+(m%60)+" daqiqa";}
+function updPlays(){var left=playsLeft(),b=$("tapStart");
+  $("plays").textContent="Urinishlar: "+left+"/"+MAXPLAYS+" (har 12 soatda)";
+  if(!g.on){b.disabled=left<=0;if(left<=0)b.textContent="Limit tugadi. Kuting: "+waitText();else if(/Limit/.test(b.textContent))b.textContent="Boshlash";}}
+function drawLv(){var h=$("lvls");h.innerHTML="";
+  LV.forEach(function(L){var o=S.open.indexOf(L.n)>-1,b=document.createElement("button");
+    b.className="lv"+(S.lv===L.n?" on":"")+(o?"":" lock");b.style.setProperty("--c",L.c);
+    b.innerHTML="<b>"+(o?L.ic:"🔒")+"</b>"+L.n+"-daraja<small>"+(o?(L.sec+" s \u00b7 "+L.per+"=1🪙"):fmt(L.price)+" so\u02bbm")+"</small>";
+    b.onclick=function(){if(!g.on)pick(L.n)};h.appendChild(b);});
+  var L=LV[S.lv-1];$("linfo").textContent=L.nm+": "+L.sec+" soniya, "+L.per+" bosish = 1 🪙";
+  var z=$("tapzone");z.textContent=L.ic;$("arena").style.setProperty("--c",L.c);
+  z.style.background="radial-gradient(circle at 35% 30%,#fff9,"+L.c+" 62%,#0006)";
+  z.style.boxShadow="0 0 0 8px "+L.c+"33,0 0 46px "+L.c+"99";
+  $("tl").textContent=L.sec;$("tbar").style.width="100%";updPlays();}
+function pick(n){var L=LV[n-1],bx=$("buy");
+  if(S.open.indexOf(n)>-1){S.lv=n;save();bx.style.display="none";drawLv();return;}
+  bx.style.display="block";
+  if(S.open.indexOf(n-1)<0){bx.innerHTML="Avval "+(n-1)+"-darajani oching 🔒";return;}
+  bx.innerHTML="<b>"+n+"-darajani ochish: "+fmt(L.price)+" so\u02bbm</b><div class='mute' style='margin:6px 0'>1) Adminga yozing va to\u02bblov qiling. 2) Admin bergan kodni kiriting.</div><button class='btn' id='bAdm'>Adminga yozish</button><input id='bCode' placeholder='Kod'><button class='btn alt' id='bOk'>Ochish</button><div id='bMsg' class='mute'></div>";
+  $("bAdm").onclick=function(){window.open("https://t.me/"+ADMIN+"?text="+encodeURIComponent("Salom! NEXORA botda "+n+"-darajani ("+L.price+" so\u02bbm) ochmoqchiman."),"_blank")};
+  $("bOk").onclick=function(){if($("bCode").value.trim().toUpperCase()===CODES[n]){S.open.push(n);S.lv=n;save();bx.style.display="none";drawLv();confetti(30);}else{$("bMsg").textContent="Kod noto\u02bbg\u02bbri.";}};}
+
+/* effektlar */
+function rnd(a,b){return a+Math.random()*(b-a)}
+function burst(x,y,c){for(var i=0;i<7;i++){var p=document.createElement("div"),a=rnd(0,6.28),d=rnd(30,70);
+  p.className="pt";p.textContent="\u2726";p.style.color=c;p.style.left=x+"px";p.style.top=y+"px";
+  p.style.setProperty("--dx",Math.cos(a)*d+"px");p.style.setProperty("--dy",Math.sin(a)*d+"px");
+  document.body.appendChild(p);(function(q){setTimeout(function(){q.remove()},650)})(p);}}
+function floatTxt(x,y,t,big){var f=document.createElement("div");f.className="fl"+(big?" big6":"");f.textContent=t;
+  f.style.left=(x-12)+"px";f.style.top=(y-34)+"px";document.body.appendChild(f);setTimeout(function(){f.remove()},700);}
+function flyCoin(x,y){var t=$("bal").getBoundingClientRect(),c=document.createElement("div");
+  c.className="fc";c.textContent="🪙";c.style.left=x+"px";c.style.top=y+"px";document.body.appendChild(c);
+  requestAnimationFrame(function(){requestAnimationFrame(function(){c.style.transform="translate("+(t.left+t.width/2-x)+"px,"+(t.top+t.height/2-y)+"px) scale(.5)";c.style.opacity=".4";});});
+  setTimeout(function(){c.remove();var p=$("bal").parentNode;p.classList.remove("pop");void p.offsetWidth;p.classList.add("pop");},700);}
+function confetti(n){var e=["🪙","✨","⭐","🎉"];for(var i=0;i<n;i++){var c=document.createElement("div");c.className="cf";c.textContent=e[i%4];
+  c.style.left=rnd(0,95)+"vw";c.style.animationDelay=rnd(0,.5)+"s";document.body.appendChild(c);(function(q){setTimeout(function(){q.remove()},2200)})(c);}}
+
+/* o\u02bbyin */
+function tick(){var left=Math.max((g.end-Date.now())/1000,0),L=LV[S.lv-1];
+  $("tbar").style.width=(left/L.sec*100)+"%";$("tl").textContent=Math.ceil(left);
+  var low=left<=5;$("tbar").parentNode.classList.toggle("low",low);$("tl").classList.toggle("low",low);
+  if(left<=0)fin();}
+function fin(){clearInterval(g.timer);g.on=false;$("arena").classList.remove("act");
+  var L=LV[S.lv-1],want=Math.floor(g.taps/L.per);
+  if(g.earned<want){add(want-g.earned);g.earned=want;$("earn").textContent=want;}
+  $("tbar").parentNode.classList.remove("low");$("tl").classList.remove("low");
+  var b=$("tapStart");b.textContent="Yana o\u02bbynash (+"+g.earned+" 🪙 topding)";
+  if(g.earned>0)confetti(Math.min(12+g.earned,40));
+  updPlays();}
+$("tapStart").onclick=function(){if(g.on)return;if(playsLeft()<=0){updPlays();return;}
+  var L=LV[S.lv-1];S.plays.push(Date.now());save();
+  g.on=true;g.taps=0;g.earned=0;g.end=Date.now()+L.sec*1000;
+  $("taps").textContent=0;$("earn").textContent=0;this.disabled=true;this.textContent="Bos! Bos! Bos!";
+  $("arena").classList.add("act");$("plays").textContent="Urinishlar: "+playsLeft()+"/"+MAXPLAYS+" (har 12 soatda)";
+  g.timer=setInterval(tick,100);};
+$("tapzone").onpointerdown=function(e){e.preventDefault();if(!g.on)return;
+  var L=LV[S.lv-1],x=e.clientX,y=e.clientY;
+  if(!x&&!y){var r=this.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2;}
+  g.taps++;$("taps").textContent=g.taps;burst(x,y,L.c);
+  if(g.taps%L.per===0){g.earned++;$("earn").textContent=g.earned;add(1);flyCoin(x,y);floatTxt(x,y,"+1 🪙",true);if(navigator.vibrate){try{navigator.vibrate(30)}catch(_){}}}
+  else{floatTxt(x,y,"+1",false);if(navigator.vibrate){try{navigator.vibrate(6)}catch(_){}}}};
+setInterval(function(){if(!g.on)updPlays();},30000);
+drawLv();
+
+/* Gʻildirak */
+var prizes=[5,10,50,20,100,10,30,15],cols=["#f5b82e","#ff5a4e","#3ddbb0","#6c7bff","#f5b82e","#ff5a4e","#3ddbb0","#6c7bff"],rot=0;
+(function(){var c=document.getElementById("wheel"),x=c.getContext("2d"),n=prizes.length,a=2*Math.PI/n;
+  for(var i=0;i<n;i++){x.beginPath();x.moveTo(240,240);x.arc(240,240,236,i*a,(i+1)*a);x.fillStyle=cols[i];x.fill();
+    x.save();x.translate(240,240);x.rotate(i*a+a/2);x.fillStyle="#1a1300";x.font="bold 40px sans-serif";x.textAlign="right";x.fillText(prizes[i],205,14);x.restore();}})();
+document.getElementById("spin").onclick=function(){
+  var n=prizes.length,i=Math.floor(Math.random()*n),seg=360/n;
+  rot+=360*5+(270-(i*seg+seg/2))-(rot%360);
+  var w=document.getElementById("wheel");w.style.transform="rotate("+rot+"deg)";
+  S.lastWheel=today();save();this.disabled=true;
+  setTimeout(function(){add(prizes[i]);document.getElementById("wres").textContent="Yutuq: "+prizes[i]+" 🪙";},4100);};
+
+/* Viktorina */
+var Q=[["PUBG Mobile da eng katta xarita qaysi?",["Erangel","Sanhok","Vikendi","Livik"],0],
+["Free Fire da qahramon nima deyiladi?",["Agent","Character","Hero","Legend"],1],
+["MLBB toʻliq nomi?",["Mobile Legends: Bang Bang","Mobile Lords","Magic Legends","Moba Legends"],0],
+["PUBG da 'Chicken Dinner' nima?",["Gʻalaba","Maxsus qurol","Xarita","Mashina"],0],
+["Steam qanday platforma?",["Oʻyin doʻkoni","Messenjer","Bank","Brauzer"],0],
+["Oʻyinda 'FPS' nimani anglatadi?",["Kadr tezligi / First Person Shooter","Faqat ovoz","Internet turi","Narx"],0],
+["Erangel xaritasidagi mashhur shahar?",["Pochinki","Tokyo","Paris","Cairo"],0]];
+var qi=0,qs=[],qok=0;
+function nextQ(){var b=document.getElementById("qbox");
+  if(qi>=qs.length){b.innerHTML="<div class='center'><div class='big'>🏁</div>Toʻgʻri: "+qok+"/"+qs.length+" → +"+qok*10+" 🪙</div>";add(qok*10);document.getElementById("qstart").style.display="";document.getElementById("qn").textContent="";return;}
+  var q=qs[qi];document.getElementById("qn").textContent=(qi+1)+"/"+qs.length;
+  b.innerHTML="<div>"+q[0]+"</div>";
+  q[1].forEach(function(t,k){var o=document.createElement("button");o.className="opt";o.textContent=t;
+    o.onclick=function(){var all=b.querySelectorAll(".opt");all.forEach(function(e){e.disabled=true});
+      if(k===q[2]){o.classList.add("ok");qok++;}else{o.classList.add("bad");all[q[2]].classList.add("ok");}
+      setTimeout(function(){qi++;nextQ();},900);};b.appendChild(o);});}
+document.getElementById("qstart").onclick=function(){
+  qs=Q.slice().sort(function(){return Math.random()-.5}).slice(0,5);qi=0;qok=0;this.style.display="none";nextQ();};
+
+/* Donat va sarflash */
+document.querySelectorAll("[data-buy]").forEach(function(b){b.onclick=function(){
+  window.open("https://t.me/"+ADMIN+"?text="+encodeURIComponent("Salom! NEXORA botda "+b.dataset.buy+" sotib olmoqchiman."),"_blank");};});
+document.querySelectorAll("[data-spend]").forEach(function(b){b.onclick=function(){
+  var p=b.dataset.spend.split("|"),c=parseInt(p[0],10);
+  if(S.coins<c){alert("Tanga yetarli emas. Yana "+(c-S.coins)+" 🪙 kerak.");return;}
+  S.coins-=c;save();render();
+  window.open("https://t.me/"+ADMIN+"?text="+encodeURIComponent("Men "+c+" tanga evaziga: "+p[1]+" olmoqchiman."),"_blank");};});
+document.getElementById("share").onclick=function(){
+  window.open("https://t.me/share/url?url="+encodeURIComponent("https://t.me/"+BOT)+"&text="+encodeURIComponent("Oʻyna, tanga yut, UC ol!"),"_blank");};
+render();
+</script>
+</body>
+</html>
